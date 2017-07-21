@@ -1,5 +1,7 @@
 from page_object_example.base_page import BasePage
-
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.common.by import By
 
 class DeleteCustomerPage(BasePage):
 
@@ -22,6 +24,10 @@ class DeleteCustomerPage(BasePage):
         self.customer_id_text_field.send_keys(customer_id)
         if click_submit:
             self.submit_button.click()
+            WebDriverWait(self.driver, 5).until(EC.alert_is_present())
+            self.driver.switch_to_alert().accept()
+            WebDriverWait(self.driver, 5).until(EC.alert_is_present())
+            self.driver.switch_to_alert().accept()
         elif click_reset:
             self.reset_button.click()
 
