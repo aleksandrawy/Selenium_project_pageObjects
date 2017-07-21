@@ -49,10 +49,18 @@ def test_new_customer():
     new_customer_id = customer_registered_page.get_customer_id()
 
 
-def test_delete_customer():
+def test_delete_customer_success():
     delete_customer_page = DeleteCustomerPage(driver)
     delete_customer_page.open()
-    delete_customer_page.delete_customer(customer_id=new_customer_id)
+    alert_text = delete_customer_page.delete_customer(customer_id=new_customer_id)
+    assert alert_text == 'Customer deleted Succesfully'
+
+
+def test_delete_customer_fail():
+    delete_customer_page = DeleteCustomerPage(driver)
+    delete_customer_page.open()
+    alert_text = delete_customer_page.delete_customer(customer_id=new_customer_id)
+    assert alert_text == 'Customer does not exist!!'
 
 
 def teardown_module(module):

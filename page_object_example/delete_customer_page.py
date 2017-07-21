@@ -18,6 +18,7 @@ class DeleteCustomerPage(BasePage):
         return self.driver.find_element_by_name('res')
 
     def open(self):
+        WebDriverWait(self.driver, 10)#.until(EC.visibility_of_element_located((By.XPATH), './/a[@href="DeleteCustomerInput.php"]'))
         self.driver.find_element_by_xpath('.//a[@href="DeleteCustomerInput.php"]').click()
 
     def delete_customer(self, customer_id, click_submit=True, click_reset=False):
@@ -27,7 +28,12 @@ class DeleteCustomerPage(BasePage):
             WebDriverWait(self.driver, 5).until(EC.alert_is_present())
             self.driver.switch_to_alert().accept()
             WebDriverWait(self.driver, 5).until(EC.alert_is_present())
-            self.driver.switch_to_alert().accept()
+            information_alert = self.driver.switch_to_alert()
+            information_alert_text = information_alert.text
+            information_alert.accept()
+
+            return information_alert_text
+
         elif click_reset:
             self.reset_button.click()
 
