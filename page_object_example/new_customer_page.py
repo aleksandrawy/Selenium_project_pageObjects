@@ -101,6 +101,5 @@ class NewCustomerPage(BasePage):
 
         if click_submit:
             self.submit_button.click()
-
-        if click_reset:
+        elif click_reset:
             self.reset_button.click()
